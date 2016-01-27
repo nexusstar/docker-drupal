@@ -1,6 +1,6 @@
 # About this Repo
 
-This is Docker image for fast [drupal](https://www.drupal.org)
+This is Docker image for [drupal](https://www.drupal.org) 7.x branch
 and is based on oficial Doker [drupal](https://registry.hub.docker.com/_/drupal/).
 The diference is that it clones Drupal repository and switches to version provided in 
 `DRUPAL_VERSION` and `DRUPAL_RELEASE`.
