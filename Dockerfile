@@ -21,7 +21,16 @@ ENV MY_SITE mysite
 
 RUN git clone --branch ${DRUPAL_VERSION}.x https://git.drupal.org/project/drupal.git .
 
-#Avoid detached head state
+# Avoid detached head state
 RUN git checkout -b ${MY_SITE} ${DRUPAL_VERSION}.${DRUPAL_RELEASE}
 RUN git remote rename origin drupal
-RUN chown -R www-data:www-data sites
+
+VOLUME ["/var/www/html/sites/all/themes/contrib", \
+	"/var/www/html/sites/all/themes/custom", \
+	"/var/www/html/sites/all/modules/contrib", \
+	"/var/www/html/sites/all/modules/custom", \
+	"/var/www/html/sites/default/files" ]
+
+EXPOSE 80
+
+RUN chown -R www-data:www-data /var/www/html/sites
