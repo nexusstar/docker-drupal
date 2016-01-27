@@ -14,7 +14,8 @@ Change `DRUPAL_RELEASE 41` to `DRUPAL_RELEASE 2`
 See the Hub page for the full readme on how to use the Docker image and for information
 regarding contributing and issues.
 
-__
+___
+
 The full readme for oficial Docker Drupal is generated over in [docker-library/docs](https://github.com/docker-library/docs),
 specificially in [docker-library/docs/drupal](https://github.com/docker-library/docs/tree/master/drupal).
 
