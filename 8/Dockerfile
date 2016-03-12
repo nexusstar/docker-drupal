@@ -28,7 +28,7 @@ WORKDIR /var/www/html
 
 # https://www.drupal.org/node/3060/release
 ENV DRUPAL_VERSION 8.0
-ENV DRUPAL_RELEASE 2
+ENV DRUPAL_RELEASE 4
 ENV MY_SITE mysite
 
 RUN git clone --branch ${DRUPAL_VERSION}.x https://git.drupal.org/project/drupal.git .
