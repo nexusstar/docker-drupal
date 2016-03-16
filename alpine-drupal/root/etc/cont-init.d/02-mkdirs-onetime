@@ -1,0 +1,29 @@
+#!/usr/bin/with-contenv /bin/bash
+
+if [ ! -d /workspace ] ; then
+  mkdir -p /workspace
+  chown apache:apache /workspace/logs/php-fpm
+fi
+
+if [ ! -d /workspace/public_html ] ; then
+  mkdir -p /workspace/public_html
+  chown apache:www-data /workspace/public_html
+fi
+
+if [ ! -d /workspace/logs/apache2 ] ; then
+  mkdir -p /workspace/logs/apache2
+  chown apache:apache /workspace/logs/apache2
+fi
+
+if [ ! -d /workspace/logs/php-fpm ] ; then
+  mkdir -p /workspace/logs/php-fpm
+  chown apache:apache /workspace/logs/php-fpm
+fi
+
+if [ ! -d /run/apache2 ] ; then
+  mkdir -p /run/apache2
+  chown apache:apache /run/apache2
+fi
+
+
+
