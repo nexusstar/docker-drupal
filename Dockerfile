@@ -21,15 +21,25 @@ RUN apk update \
     php-gd php-iconv php-mcrypt php-mysql \
     php-curl php-opcache php-ctype php-apcu \
     php-intl php-bcmath php-dom php-xmlreader php-pcntl php-posix  \
-    curl git mysql-client apk-cron postfix musl
+    curl git mysql-client apk-cron postfix musl \
+    openssh-sftp-server openssh linux-pam
 
 RUN rm -rf /var/cache/apk/*
 
-# Configure apache
+# Configure Apache
 RUN sed -i -e 's:#LoadModule rewrite_module:LoadModule rewrite_module:' /etc/apache2/httpd.conf
 
 # Apache permissions to /workspace/public_html
 RUN set -i 's/apache:x:1000:1000:Linux User,,,:\/var\/www:\/sbin\/nologin/apache:x:1000:1000:Linux User,,,:\/workspace\/public_html:\/sbin\/nologin/g' /etc/passwd
+
+# Setup SSH.
+RUN ssh-keygen -A
+RUN echo 'root:root' | chpasswd
+RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN mkdir /var/run/sshd && chmod 0755 /var/run/sshd
+RUN mkdir -p /root/.ssh/ && touch /root/.ssh/authorized_keys
+RUN echo 'session optional pam_loginuid.so' > /etc/pam.d/sshd
+
 
 # Install Composer.
 RUN curl -sS https://getcomposer.org/installer | php
@@ -45,6 +55,6 @@ ADD files/php-fpm.conf /etc/php/
 
 RUN mkdir -p /var/log/php-fpm/
 
-EXPOSE 80 443
+EXPOSE 80 443 22
 VOLUME ["/workspace"]
 ENTRYPOINT ["/init"]
