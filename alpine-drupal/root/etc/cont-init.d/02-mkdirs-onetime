@@ -7,7 +7,7 @@ fi
 
 if [ ! -d /workspace/public_html ] ; then
   mkdir -p /workspace/public_html
-  chown apache:www-data /workspace/public_html
+  chown apache:apache /workspace/public_html
 fi
 
 if [ ! -d /workspace/logs/apache2 ] ; then

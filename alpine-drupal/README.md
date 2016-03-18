@@ -12,7 +12,7 @@
 
 git clone --branch 8.0.x https://git.drupal.org/project/drupal.git .
 git tag #see what is latest tag e.g 8.0.5
-git checkout -b drual-site 8.0.5
+git checkout -b drupal-site 8.0.5
 
 ```
 Note the `.` after git clone it tells to clone in current folder not in drupal

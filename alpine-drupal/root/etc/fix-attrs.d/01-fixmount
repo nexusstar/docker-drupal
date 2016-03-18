@@ -1,3 +1,3 @@
-/workspace true user,100:101 0600 0700
-/workspace/.ssh true user,100:101 0600 0700
+/workspace true user,1000:1000 0600 0700
+/workspace/.ssh true user,1000:1000 0600 0700
 

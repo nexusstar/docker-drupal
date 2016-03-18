@@ -1,5 +1,5 @@
 FROM alpine:edge
-MAINTAINER Etopian Inc. <contact@etopian.com>
+MAINTAINER NexusStar <info@nexustar.name>
 
 # Add s6-overlay
 ENV S6_OVERLAY_VERSION v1.17.1.1
@@ -18,19 +18,18 @@ RUN apk update \
     && apk add bash less ca-certificates \
     php-fpm php-json php-zlib php-xml php-pdo php-phar php-openssl \
     php-pdo_mysql php-mysqli \
-    php-gd php-iconv php-mcrypt \
-    php-mysql php-curl php-opcache php-ctype php-apcu \
-    php-intl php-bcmath php-dom php-xmlreader curl git \
-    mysql-client php-pcntl php-posix apk-cron postfix musl
+    php-gd php-iconv php-mcrypt php-mysql \
+    php-curl php-opcache php-ctype php-apcu \
+    php-intl php-bcmath php-dom php-xmlreader php-pcntl php-posix  \
+    curl git mysql-client apk-cron postfix musl
 
 RUN rm -rf /var/cache/apk/*
 
 # Configure apache
-RUN sed -i -e 's:/var/www/localhost/htdocs:/workspace/public_html:' /etc/apache2/httpd.conf
-
 RUN sed -i -e 's:#LoadModule rewrite_module:LoadModule rewrite_module:' /etc/apache2/httpd.conf
 
-RUN sed -ie ':/workspace/public_html:{n;s:AllowOverride none:AllowOverride All:}' /etc/apache2/httpd.conf
+# Apache permissions to /workspace/public_html
+RUN set -i 's/apache:x:1000:1000:Linux User,,,:\/var\/www:\/sbin\/nologin/apache:x:1000:1000:Linux User,,,:\/workspace\/public_html:\/sbin\/nologin/g' /etc/passwd
 
 # Install Composer.
 RUN curl -sS https://getcomposer.org/installer | php
@@ -40,21 +39,11 @@ RUN mv composer.phar /usr/local/bin/composer
 RUN composer global require drush/drush
 ENV PATH "/root/.composer/vendor/bin:usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
+RUN echo -e "\nexport TERM=xterm" >> ~/.bashrc
+
 ADD files/php-fpm.conf /etc/php/
 
-ADD files/postfix/main.cf /etc/postfix/main.cf.new
-ADD files/postfix/setup_ses.sh /setup_ses.sh
-
-
-RUN mkdir -p /var/log/php-fpm/ && \
-    chmod +x /setup_ses.sh
-
-# configure postfix use to amazon ses to send mail.
-ENV SES_HOST="email-smtp.us-east-1.amazonaws.com" SES_PORT="587" \
-    SES_USER="" SES_SECRET="" TERM="xterm" \
-    DB_HOST="172.17.0.1" DB_USER="" DB_PASS="" DB_NAME=""
-
-RUN /setup_ses.sh
+RUN mkdir -p /var/log/php-fpm/
 
 EXPOSE 80 443
 VOLUME ["/workspace"]
