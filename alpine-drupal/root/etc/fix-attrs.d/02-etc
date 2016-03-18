@@ -1,3 +1,0 @@
-/etc/periodic true root 0700 0700
-/etc/services.d true root 0700 0700
-/etc/cont-init.d true root 0700 0700
