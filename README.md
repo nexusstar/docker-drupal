@@ -29,7 +29,7 @@ git remote -v
 
 ```bash
 
-docker build --tag=drupal
+docker build --tag=websrv .
 docker pull imega/mysql
 
 ```
@@ -46,7 +46,7 @@ docker run -d --name "mysqlsrv" -v /tmp/empty/db:/var/lib/mysql imega/mysql
 
 ```bash
 
-docker run -d --name "drupal-site" --link mysqlsrv:mysqlsrv -p 8080:80 -v ~/workspace/drupal-site:/workspace/public_html -t drupal
+docker run -d --name "drupal" --link mysqlsrv:mysqlsrv -p 8080:80 -v ~/workspace/drupal-site:/workspace/public_html -t websrv
 
 ```
 
@@ -70,7 +70,8 @@ Go to http://localhost:8080 and install
 
 ## TODO tasks
 
- - [ ] guest /workspace/public_html doest not recieve proper owner:group
- - [ ] apache2 mod_rewrite does not get enabled
-
+ - [ ] Using drush and drupal console to install and manage modules
+ - [ ] Add more thorough documentation
+ - [x] guest /workspace/public_html doest not receive proper owner:group
+ - [x] apache2 mod_rewrite does not get enabled
 
