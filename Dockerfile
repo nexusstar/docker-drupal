@@ -1,5 +1,5 @@
-FROM alpine:edge
-MAINTAINER NexusStar <info@nexustar.name>
+FROM gliderlabs/alpine
+MAINTAINER NexusStar <soll@nexustar.name>
 
 # Add s6-overlay
 ENV S6_OVERLAY_VERSION v1.17.1.1
@@ -21,7 +21,7 @@ RUN apk update \
     php-gd php-iconv php-mcrypt php-mysql \
     php-curl php-opcache php-ctype php-apcu \
     php-intl php-bcmath php-dom php-xmlreader php-pcntl php-posix  \
-    curl git mysql-client apk-cron postfix musl \
+    curl git mariadb-client apk-cron postfix musl \
     openssh-sftp-server openssh linux-pam
 
 RUN rm -rf /var/cache/apk/*

@@ -8,6 +8,8 @@
 
 * Prepare files
 
+**this does not work with latest versions it neeeds to run composer install**
+
 ```bash
 
 git clone --branch 8.1.x --single-branch https://git.drupal.org/project/drupal.git .
