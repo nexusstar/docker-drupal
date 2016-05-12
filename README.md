@@ -10,12 +10,25 @@
 
 ```bash
 
-git clone --branch 8.0.x https://git.drupal.org/project/drupal.git .
-git tag #see what is latest tag e.g 8.0.5
-git checkout -b drupal-site 8.0.5
+git clone --branch 8.1.x --single-branch https://git.drupal.org/project/drupal.git .
+git tag #see what is latest tag e.g 8.1.1
+git checkout -b drupal-site 8.1.1
 
 ```
-Note the `.` after git clone it tells to clone in current folder not in drupal
+_Note_ the `.` after git clone it tells to clone in current folder not in drupal
+
+`--single-branch` clones history only for this branch
+
+	If you don't plan to update core with git use instead:
+
+```bash
+
+git clone --branch 8.1.1 --depth 1 https://git.drupal.org/project/drupal.git .
+
+```
+
+This clones just 8.1.1 tag
+
 Also it is good to change remote to something telling just in case
 
 ```bash
